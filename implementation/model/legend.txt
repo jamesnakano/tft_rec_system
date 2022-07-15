@@ -1,0 +1,13 @@
+games_recorded,0
+traitsdf,1
+unitsdf,2
+itemsdf,3
+units3df,4
+traits4df,5
+items_unitsdf,6
+items_units_placementdf,7
+traits_unitsdf,8
+traits_units_placementdf,9
+traits_units_tierdf,10
+traits_tier_firstdf,11
+unitsdf_top4,12
