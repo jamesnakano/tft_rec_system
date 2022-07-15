@@ -2,6 +2,8 @@ def item_recommendation(item_name):
   items_rec = {}
   for item in item_recipesdf[item].sort_values(ascending=False).index:
     items_rec[item] = item_recipesdf.loc[item, item_name]/item_recipesdf[item_name].max()
+  items_recdf = pd.DataFrame(items_rec.values(), index=items_rec.keys(), columns=['item'])
+  return(items_recdf)
     
 def unit_recommendation(unit_name):
   unit_name = 'TFT7_'+unit_name
