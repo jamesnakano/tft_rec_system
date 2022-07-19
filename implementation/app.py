@@ -52,9 +52,12 @@ def prediction_results():
     data12 = pd.read_csv("model/12")
     data13 = pd.read_csv("model/13")
     # Generate, transform, and format predictions
-    u_t_rec, u_i_rec, u_u_rec = rec.unit_recommendation(unit, data8, data10, data6, data2)
-    t_t_rec, t_u_rec = rec.trait_recommendation(trait, data1, data8, data10, data3)
-    i_i_rec = rec.item_recommendation(item, data13)
+    if unit!="none":
+        u_t_rec, u_i_rec, u_u_rec = rec.unit_recommendation(unit, data8, data10, data6, data2)
+    if trait!="none":
+        t_t_rec, t_u_rec = rec.trait_recommendation(trait, data1, data8, data10, data3)
+    if item!="none":
+        i_i_rec = rec.item_recommendation(item, data13)
     # Render prediction
     return render_template(
         "results.html",
