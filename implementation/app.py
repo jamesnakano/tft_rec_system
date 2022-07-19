@@ -23,16 +23,18 @@ def index():
     return render_template("index.html")
 
 # Prediction Form Page
-@app.route("/recommendation", methods=["GET"])
+@app.route("/recommendation")
 def recommendation():
 
-    return render_template("recommendation.html", data=datasets)
+    return render_template("recommendation.html")
 
 # Prediction Results Page
 @app.route("/results", methods=["POST"])
 def prediction_results():
-    
-    raw_form_data = request.form
+    form_data = dict(request.form.items())
+    unit = form_data['unit']
+    trait = form_data['trait']
+    item = form_data['component']
     
     # Prep form data for model
     data0 = pd.read_csv("model/0")
@@ -48,14 +50,15 @@ def prediction_results():
     data10 = pd.read_csv("model/10")
     data11 = pd.read_csv("model/11")
     data12 = pd.read_csv("model/12")
+    data13 = pd.read_csv("model/13")
     # Generate, transform, and format predictions
-    u_t_rec, u_i_rec, u_u_rec = rec.unit_recommendation('Ryze')
-    t_t_rec, t_u_rec = rec.trait_recommendation('Mage')
-    i_i_rec = rec.item_recommendation('Chain Vest')
+    u_t_rec, u_i_rec, u_u_rec = rec.unit_recommendation(unit, data8, data10, data6, data2)
+    t_t_rec, t_u_rec = rec.trait_recommendation(trait, data1, data8, data10, data3)
+    i_i_rec = rec.item_recommendation(item, data13)
     # Render prediction
     return render_template(
         "results.html",
         # Make dynamic values available for rendering with template
         # key=value,
-        unit_by_trait = u_t_rec, 
+        unit_to_trait = u_t_rec, unit_to_item = u_i_rec, unit_to_unit = u_u_rec, trait_to_trait = t_t_rec, trait_to_unit = t_u_rec, item_to_item = i_i_rec 
     )
