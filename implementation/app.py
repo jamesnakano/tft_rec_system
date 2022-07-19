@@ -49,12 +49,13 @@ def prediction_results():
     data11 = pd.read_csv("model/11)
     data12 = pd.read_csv("model/12)
     # Generate, transform, and format predictions
-    u_t_rec, u_i_rec, u_u_rec = unit_recommendation('Ryze')
-    t_t_rec, t_u_rec = trait_recommendation('Mage')
-    i_i_rec = item_recommendation('Chain Vest')
+    u_t_rec, u_i_rec, u_u_rec = rec.unit_recommendation('Ryze')
+    t_t_rec, t_u_rec = rec.trait_recommendation('Mage')
+    i_i_rec = rec.item_recommendation('Chain Vest')
     # Render prediction
     return render_template(
         "results.html",
         # Make dynamic values available for rendering with template
         # key=value,
+        unit_by_trait = u_t_rec, 
     )
