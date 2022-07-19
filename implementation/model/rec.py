@@ -1,11 +1,11 @@
-def item_recommendation(item_name):
+def item_recommendation(item_name, item_recipesdf):
   items_rec = {}
   for item in item_recipesdf[item_name].sort_values(ascending=False).index:
     items_rec[item] = item_recipesdf.loc[item, item_name]/item_recipesdf[item_name].max()
   items_recdf = pd.DataFrame(items_rec.values(), index=items_rec.keys(), columns=['item'])
   return(items_recdf)
     
-def unit_recommendation(unit_name):
+def unit_recommendation(unit_name, traits_unitsdf, traits_units_tierdf, items_unitsdf, unitsdf):
   unit_name = 'TFT7_'+unit_name
   traits_rec = {}
   for trait in traits_unitsdf[unit_name].sort_values(ascending=False).index:
@@ -27,7 +27,7 @@ def unit_recommendation(unit_name):
   units_recdf = pd.DataFrame(units_rec.values(), index= units_rec.keys(), columns=['unit'])
   return(traits_recdf, items_recdf, units_recdf)
 
-def trait_recommendation(trait_name):
+def trait_recommendation(trait_name, traitsdf, traits_unitsdf, traits_units_tierdf, items_unitsdf):
   trait_name = 'Set7_'+trait_name
   traits_rec = {}
   for trait in traitsdf.transpose().corr()[trait_name].sort_values(ascending=False).index[1:]:
